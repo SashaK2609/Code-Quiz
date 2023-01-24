@@ -14,7 +14,7 @@ Basically,  the logic.js contains lots of JavaScript code learned in the passed 
 - click the button "Start Quiz";
 
 - questions are shown one by one and the time set to 90 sec;
-![alt text](images/CQ1.png)
+![alt text](Images/CQ1.png)
 
 - user chooses answer by clicking on option;
 
