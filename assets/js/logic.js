@@ -66,14 +66,18 @@ function toggleVisibility(elementId) {
 	document.getElementById(elementId).classList.toggle('hide');
 };
 
+
 function submitScore() {
 	const initials = document.getElementById(initialsId).value;
 
+	//take data from storage, parse answers array from string or use empty array
 	const savedAnswers = JSON.parse(localStorage.getItem(storageKey)) || [];
 
+	//add new data to array and store it back in string to the storage
 	savedAnswers.push({ initials, score, questionsCount: questions.length });
 	localStorage.setItem(storageKey, JSON.stringify(savedAnswers));
 
+	//reset answers and score
 	answers = [];
 	score = 0;
 
@@ -88,17 +92,21 @@ function finishQuiz() {
 	quizTime = 90;
 	currentQuestion = 0;
 
+	//show screen where user can do an input
 	toggleVisibility(questionsId);
 	toggleVisibility(endScreenId);
 
+	//if the answer was correct it adds 1 point to the score
 	answers.forEach(function(isAnswerCorrect) {
 		 if (isAnswerCorrect) {
 			  score = score + 1;
 		 }
 	});
 
+	//displays how many correct answers are there out of total
 	document.getElementById(scoreId).innerHTML = score + ' / ' + questions.length;
 };
+
 
 function startTimer() {
 	interval = setInterval(function() {
@@ -107,20 +115,23 @@ function startTimer() {
 		 } else {
 			  quizTime = quizTime - 1;
 		 }
-		 
+
 		 document.getElementById(timeId).innerText = quizTime;
 	}, 1000);
 };
 
+//user chooses an answer and it is compared to the right answers
 function submitAnswer(event) { 
 	const userAnswer = event.target.innerText;
 	const isAnswerCorrect = userAnswer === questions[currentQuestion].answer;
 	answers[currentQuestion] = isAnswerCorrect;
 
+	//if the answer is not correct it subtracnts 10sec from total time
 	if (!isAnswerCorrect) {
 		 quizTime = quizTime - 10;
 	}
 
+	//quiz ends when it's a last question, if not it shows the next one
 	if (currentQuestion === questions.length - 1) {
 		 finishQuiz();
 	} else {
@@ -129,6 +140,7 @@ function submitAnswer(event) {
 	}
 };
 
+//when questions show up on the screen one by one, user gets to make a choice by clicking on answer, which is a submittion
 function renderQuestion() {
 	const question = questions[currentQuestion];
 
@@ -145,6 +157,7 @@ function renderQuestion() {
 	});  
 };
 
+//hide the start screen and and after showing questions timer starts as well
 function start() {
 	toggleVisibility(startScreenId);
 	toggleVisibility(questionsId);
