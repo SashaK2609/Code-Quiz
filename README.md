@@ -31,3 +31,5 @@ N/A
 
 ### License
 Please refer to the LICENSE in the repo.
+
+This project was deployed at GitHub Pages: https://sashak2609.github.io/Code-Quiz/
